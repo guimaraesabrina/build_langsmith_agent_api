@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-agent-deployment
+  labels:
+    app: data-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-agent
+  template:
+    metadata:
+      labels:
+        app: data-agent
+    spec:
+      containers:
+      - name: data-agent
+        image: guimaraesabri/data-agent:develop
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000  # Adjust this port based on the application's requirements
+        env:
+          - name: BASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: openai-credentials
+                key: base
+          - name: API_VERSION
+            valueFrom:
+              secretKeyRef:
+                name: openai-credentials
+                key: version
+          - name: API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: openai-credentials
+                key: key
+          - name: API_TYPE
+            valueFrom:
+              secretKeyRef:
+                name: openai-credentials
+                key: type
+          - name: DEPLOYMENT_NAME
+            valueFrom:
+              secretKeyRef:
+                name: openai-credentials
+                key: deployment_name

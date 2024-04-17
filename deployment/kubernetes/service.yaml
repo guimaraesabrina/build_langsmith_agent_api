@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-agent-service
+  labels:
+    app: data-agent
+spec:
+  type: ClusterIP  # Default type, only accessible within the cluster
+  ports:
+    - port: 8000  # The port the service is accessible on within the cluster
+      targetPort: 80  # The port on the container that the service routes to
+  selector:
+    app: data-agent  # Selects pods with the label app=data-agent
