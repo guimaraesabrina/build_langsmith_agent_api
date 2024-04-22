@@ -10,7 +10,6 @@ This repository contains the code for an API developed to interface with a speci
 ## Features
 
 - **Specialist Knowledge Areas**: The API leverages specific templates for various domains, including Data Engineering, MLOps, Machine Learning Engineering, and Data Science.
-- **Integration with Azure and OpenAI**: Utilizes Azure's infrastructure for OpenAI model deployments to handle requests efficiently.
 - **Dynamic Prompt Templating**: Supports dynamic templating for prompts using Langchain and LangSmith, ensuring versatility and relevance of the responses.
 - **Error Handling**: Robust error handling to manage and respond to execution failures.
 
