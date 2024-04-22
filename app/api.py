@@ -4,13 +4,12 @@ import os
 import openai
 import uvicorn
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from pydantic import BaseModel
 from langchain import hub
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain.prompts import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.pydantic_v1 import BaseModel
 from langchain_core.tools import tool
 from langchain_openai import AzureChatOpenAI
 
@@ -120,7 +119,7 @@ agent = create_react_agent(model, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 @app.post("/agent/invoke", response_model=Output)
-def invoke_agent(input_data: Input):
+def invoke_agent(input_data: Input = Body(...)):
     try:
         response = agent_executor.invoke({"input": input_data.input_text})
         return Output(model_response=response['output'])
@@ -129,4 +128,6 @@ def invoke_agent(input_data: Input):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# to testing the API: uvicorn app.api:app --reload
 

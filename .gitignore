@@ -1,1 +1,10 @@
+# Ignore secret.yaml file in deployment/kubernetes directory
 deployment/kubernetes/secret.yaml
+
+# Ignore byte-compiled, optimized, and DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore cache files in app directory
+app/__pycache__/
